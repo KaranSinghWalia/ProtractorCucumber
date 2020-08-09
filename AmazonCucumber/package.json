@@ -1,0 +1,33 @@
+{
+    "name": "testbot",
+    "version": "1.0.0",
+    "description": "Amazon Cucumber",
+    "main": "index.js",
+    "scripts": {
+        "test": "npm run clean && npm run build &&protractor tempJSFiles/config.js --suite",
+        "cucumbertest": "npm run clean && npm run build && protractor tempJSFiles/configs/cucumber_config.js --suite",
+        "pretest": "clean-build",
+        "build": "tsc",
+        "clean": "rimraf tempJSFiles/",
+        "clean-build": "npm run clean && npm run build",
+        "posttest": "allure generate ./reports/functional/Allure-report/allure-results --clean -o ./reports/functional/Allure-report/allure-report || true",
+        "protractor": "./node_modules/protractor/built/cli.js",
+        "webdriver-update": "./node_modules/.bin/webdriver-manager update",
+        "webdriver-start": "./node_modules/.bin/webdriver-manager start",
+        "contract_tests": " mocha --timeout=10000 \" ./**/*.pact.js\" --reporter mochawesome --reporter-options reportDir=\"./reports/contract_test_reports\" --bail --colors",
+        "only_provider_tests": " mocha --timeout=10000 \" ./**/*.provider.pact.js\" --reporter mochawesome --reporter-options reportDir=\"./reports/contract_test_reports\" --bail --colors",
+        "only_consumer_tests": " mocha --timeout=10000 \" ./**/*.consumer.pact.js\" --reporter mochawesome --reporter-options reportDir=\"./reports/contract_test_reports\" --bail --colors"
+    },
+    "author": "Autobot",
+    "license": "ISC",
+    "dependencies": {
+        "@types/node": "14.0.6",
+        "cucumber": "^6.0.5",
+        "protractor": "7.0.0",
+        "protractor-cucumber-framework": "6.2.1"
+    },
+    "devDependencies": {
+        "@types/cucumber": "^6.0.1",
+        "typescript": "3.8.2"
+    }
+}

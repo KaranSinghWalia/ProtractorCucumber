@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "inlineSourceMap": true,
+    "declaration": false,
+    "noImplicitAny": true,
+    "removeComments": false,
+    "sourceMap": false,
+    "outDir": "./tempJSFiles",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule":true
+  },
+  "exclude": [
+    "node_modules",
+    "asyncAwait",
+    "plugins.ts",
+    "target/classes"
+  ] 
+}
