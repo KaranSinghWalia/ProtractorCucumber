@@ -1,3 +1,4 @@
+import { setDefaultTimeout } from "cucumber";
 import { Config, browser } from "protractor";
 
 
@@ -6,52 +7,21 @@ import { Config, browser } from "protractor";
  */
 export let config: Config = {
     directConnect: true,
-    ignoreUncaughtExceptions: true,
     framework: 'custom',
     frameworkPath: require.resolve('protractor-cucumber-framework'),
-    logLevel: 'ERROR',
-    // seleniumAddress: 'http://localhost:4444/wd/hub',
 
+    // Capabilities to be passed to the webdriver instance.
     capabilities:
     {
         browserName: 'chrome',
-        chromeOptions: {
-             excludeSwitches: ['enable-automation'],
-             useAutomationExtension: false,
-            // disable Password manager popup
-            prefs: {
-                credentials_enable_service: false
-            },
-            // args: ["--headless", "--disable-gpu", "--window-size=1920,1080", "--log-level=3"] 
-        }
     },
 
-    /**
-     * Params - These are the parameters used throughout the project
-     * This will contain the 
-     * @param - `application URL`
-     * @param - `database credentials`
-     */
-    params: {
-        url: "https://www.amazon.in/",
-    },
 
     /**
      * Suites - Add all the feature files here which we want to execute
      */
     suites: {
-        LoginPage: ['../../src/features/login.feature']
-    },
-
-    /**
-     * OnPrepare - is the pre-condition that it will be running before the tests
-     */
-    onPrepare: async () => {
-
-        browser.ignoreSynchronization = true;// for non-angular websites
-        await browser.manage().window().maximize();
-        await browser.manage().deleteAllCookies();
-        await browser.get(browser.params.url)
+        LoginPage: ['../../src/loginPage/feature/login.feature'],
     },
 
 
@@ -60,17 +30,35 @@ export let config: Config = {
        * 
        * */
     cucumberOpts: {
+       
         require: [
-            './../src/utils/cucumber/*.js',
-            './../src/step_definitions/*.js',
+            './../src/utils/*.js',
+            './../src/loginPage/step_definitions/*.js',
         ]
+    },
+    /**
+     * Parameters which can be used throughout the project
+     */
+    params : {
+        url : "https://www.amazon.in",
     },
 
     /**
-     * OnComplete - Post condition which will be user after the test
+     * OnPrepare - is the precondition that will get excuted befor each test
+     */
+    onPrepare: async () => {
+        browser.manage().window().maximize();
+        browser.manage().deleteAllCookies();
+        await browser.waitForAngularEnabled(false)
+        browser.get(browser.params.url)  
+        
+    },
+    /**
+     * OnComplete is a post condition that will get executed after all the tests
      */
     onComplete: async () => {
 
-
     }
+
+
 };
