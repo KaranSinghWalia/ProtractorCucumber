@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "npm run clean && npm run build &&protractor tempJSFiles/config.js --suite",
-        "cucumbertest": "npm run clean && npm run build && protractor tempJSFiles/configs/cucumber_config.js --suite",
+        "cucumbertest": "npm run clean && npm run build && protractor tempJSFiles/config/cucumber_config.js --suite",
         "pretest": "clean-build",
         "build": "tsc",
         "clean": "rimraf tempJSFiles/",
@@ -23,7 +23,7 @@
     "dependencies": {
         "@types/node": "14.0.6",
         "cucumber": "^6.0.5",
-        "protractor": "7.0.0",
+        "protractor": "^7.0.0",
         "protractor-cucumber-framework": "6.2.1"
     },
     "devDependencies": {
